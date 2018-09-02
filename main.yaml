@@ -36,7 +36,8 @@ paths:
                 $ref: '#/components/schemas/User'
               examples:
                 user:
-                  $ref: "/examples/users/200_get_user.json"
+                  summary: This is an user example JSON
+                  externalValue: "https://github.com/marcoapferegrino/api-schemas/blob/master/examples/users/200_get_user.json"
   /users:
     get:
       tags:
