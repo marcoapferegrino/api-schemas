@@ -1,0 +1,129 @@
+openapi: "3.0.0"
+info:
+  title: "Users"
+  description: "This is an example API"
+  version: "0.0.1"
+  contact:
+    name: Mark
+    email: "ferefuc@gmail.com"
+tags:
+  - name: Users
+    description: "Common Schema for users"
+servers:
+  - url: /development.apis
+    description: Development server
+
+paths:
+  /users/{user-id}:
+    get:
+      tags:
+        - Users
+      summary: User information
+      description: It allows consult the user information
+      parameters:
+      - name: user-id
+        in: path
+        description: Unique user's identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                user:
+                  $ref: "/examples/users/200_get_user.json"
+  /users:
+    get:
+      tags:
+        - Users
+      summary: List all users
+      description: Provides all users in API
+      parameters:
+      - name: email
+        in: query
+        description: User's email
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: User's status
+        schema:
+          type: string
+          enum:
+          - ACTIVE
+          - BLOCKED
+          - INACTIVE
+
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+    post:
+      tags:
+        - Users
+      summary: Creates a new user
+      description: It allows the creation of new user
+      requestBody:
+        description: User example
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Created
+          headers:
+            location:
+              schema:
+                type: string
+                example: "/users/12345"
+              description: URL of the created resource
+          
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        first_name:
+          type: string
+        middle_name:
+          type: string
+        last_name:
+          type: string
+        avatar:
+          type: string
+        birthday:
+          type: string
+          format: date
+        phone:
+          type: string
+        is_verified:
+          type: boolean
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - BLOCKED
+          - INACTIVE
