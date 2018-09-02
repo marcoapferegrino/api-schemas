@@ -34,10 +34,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-              examples:
-                user:
-                  summary: This is an user example JSON
-                  externalValue: 'https://github.com/marcoapferegrino/api-schemas/blob/master/examples/users/200_get_user.json'
+    put:
+      tags:
+        - Users
+      summary: Update User
+      description: Update the complete User
+      requestBody:
+        description: Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+
   /users:
     get:
       tags:
